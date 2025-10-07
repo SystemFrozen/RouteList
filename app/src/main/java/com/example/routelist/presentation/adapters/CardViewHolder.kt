@@ -1,0 +1,12 @@
+package com.example.routelist.presentation.adapters
+
+import androidx.recyclerview.widget.RecyclerView
+import com.example.routelist.databinding.ItemStatisticCardBinding
+
+class CardViewHolder(private val binding: ItemStatisticCardBinding): RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: RouteListItem.Card) {
+        binding.tvTitle.text = item.title
+        binding.tvValue.text = item.value
+    }
+}
