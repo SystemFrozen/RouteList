@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RouteList</string>
+    <string name="routes_sheets">Маршрутные листы</string>
 </resources>
