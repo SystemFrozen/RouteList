@@ -23,10 +23,11 @@ class MainViewModel(
         uiItems.add(RouteListItem.CalendarHeader("Сентябрь 2025"))
 
         // карточки
-        uiItems.add(RouteListItem.Card("Норма часов", "160"))
-        uiItems.add(RouteListItem.Card("Отработано", "120"))
-        uiItems.add(RouteListItem.Card("Зарплата", "50 000"))
-        uiItems.add(RouteListItem.Card("Премия", "10 000"))
+        uiItems.add(RouteListItem.Card("Норма часов", "184"))
+        uiItems.add(RouteListItem.Card("Норма на сегодня", "64"))
+        uiItems.add(RouteListItem.Card("Всего", "24:00"))
+        uiItems.add(RouteListItem.Card("Пассажиром","0:00"))
+        uiItems.add(RouteListItem.Card("Ночных", "6:12"))
 
         // заголовок маршрутов
         uiItems.add(RouteListItem.RoutesHeader)
