@@ -3,9 +3,9 @@ package com.example.routelist.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.routelist.databinding.ActivityMainBinding
-import com.example.routelist.presentation.adapters.RouteListAdapter
+import com.example.routelist.presentation.adapters.mainActivity.RouteListAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,9 +21,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
         adapter = RouteListAdapter(emptyList())
-        binding.rvMain.layoutManager = LinearLayoutManager(this)
+
+        val layoutManager  = GridLayoutManager(this,2)
+
+        layoutManager.spanSizeLookup = adapter.getCardSpanSize(2)
+
+        binding.rvMain.layoutManager = layoutManager
         binding.rvMain.adapter = adapter
 
         viewModel.items.observe(this) { newItems ->

@@ -1,7 +1,8 @@
-package com.example.routelist.presentation.adapters
+package com.example.routelist.presentation.adapters.mainActivity
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemHeaderBinding
 import com.example.routelist.databinding.ItemRouteBinding
@@ -13,10 +14,10 @@ class RouteListAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private const val CALENDAR_HEADER = 0
-        private const val CARD_INFO = 1
-        private const val ROUTES_HEADER = 2
-        private const val ROUTE_LIST = 3
+        internal const val CALENDAR_HEADER = 0
+        internal const val CARD_INFO = 1
+        internal const val ROUTES_HEADER = 2
+        internal const val ROUTE_LIST = 3
 
     }
 
@@ -72,4 +73,16 @@ class RouteListAdapter(
         items = newItems
         notifyDataSetChanged()
     }
+
+    fun getCardSpanSize(cardCount: Int) = object: GridLayoutManager.SpanSizeLookup(){
+       override fun getSpanSize(position: Int): Int {
+            return when (getItemViewType(position)) {
+                CALENDAR_HEADER, ROUTES_HEADER, ROUTE_LIST -> cardCount
+                CARD_INFO -> 1
+                else -> cardCount
+            }
+        }
+    }
+
+
 }
