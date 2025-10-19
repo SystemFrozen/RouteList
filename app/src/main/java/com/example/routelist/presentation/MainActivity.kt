@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.routelist.databinding.ActivityMainBinding
-import com.example.routelist.presentation.adapters.RouteListAdapter
+import com.example.routelist.presentation.adapters.mainActivity.RouteListAdapter
 
 class MainActivity : AppCompatActivity() {
 

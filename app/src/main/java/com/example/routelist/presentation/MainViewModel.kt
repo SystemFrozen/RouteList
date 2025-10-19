@@ -3,9 +3,7 @@ package com.example.routelist.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.routelist.domain.GetCardsUseCase
-import com.example.routelist.domain.GetRoutesUseCase
-import com.example.routelist.presentation.adapters.RouteListItem
+import com.example.routelist.presentation.adapters.mainActivity.RouteListItem
 
 class MainViewModel(
 ) : ViewModel() {

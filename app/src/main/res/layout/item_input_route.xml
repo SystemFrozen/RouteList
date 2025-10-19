@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tilRouteNumber"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="8dp"
+    android:hint="Номер маршрута"
+    app:boxBackgroundColor="@color/field_bg"
+    app:boxBackgroundMode="filled"
+    app:boxCornerRadiusBottomEnd="12dp"
+    app:boxCornerRadiusBottomStart="12dp"
+    app:boxCornerRadiusTopEnd="12dp"
+    app:boxCornerRadiusTopStart="12dp"
+    app:hintEnabled="true"
+    app:startIconTint="@color/gray_hint">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etRouteNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:paddingStart="12dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="14dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_hint" />
+</com.google.android.material.textfield.TextInputLayout>
