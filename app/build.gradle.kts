@@ -51,6 +51,11 @@ dependencies {
 //    implementation(libs.mediation.test.suite)
     kapt(libs.dagger.compiler)
 
+
+    implementation(libs.androidx.room.runtime)
+    kapt("androidx.room:room-compiler:2.8.3")
+    implementation(libs.androidx.room.ktx)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
