@@ -1,7 +1,6 @@
 package com.example.routelist.presentation.adapters.mainActivity
 
 
-
 sealed class RouteListItem {
 
     data class CalendarHeader(val monthYear: String) : RouteListItem()

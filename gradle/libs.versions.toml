@@ -12,10 +12,13 @@ activity = "1.11.0"
 constraintlayout = "2.2.1"
 recyclerview = "1.4.0"
 mediationTestSuite = "3.0.0"
+roomRuntime = "2.8.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "hiltCompiler" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltCompiler" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltCompiler" }
