@@ -22,10 +22,10 @@ class RouteRepositoryImpl(
     }
 
     override suspend fun deleteRoute(route: RouteListInfo) {
-        TODO("Not yet implemented")
+        routeInfoDao.deleteRoute(mapper.mapEntityToDbModel(route))
     }
 
     override suspend fun clearAll() {
-        TODO("Not yet implemented")
+        routeInfoDao.clearAll()
     }
 }

@@ -6,10 +6,10 @@ interface RouteRepository {
 
     fun getAllRoutes(): Flow<List<RouteListInfo>>
 
-    suspend fun insertRoute(route: RouteListInfo)
+   suspend fun insertRoute(route: RouteListInfo)
 
-    suspend fun deleteRoute(route: RouteListInfo)
+   suspend fun deleteRoute(route: RouteListInfo)
 
-    suspend fun clearAll()
+   suspend fun clearAll()
 
 }
