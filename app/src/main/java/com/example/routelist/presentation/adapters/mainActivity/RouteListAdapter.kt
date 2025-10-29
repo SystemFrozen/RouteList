@@ -18,7 +18,6 @@ class RouteListAdapter(
         internal const val CARD_INFO = 1
         internal const val ROUTES_HEADER = 2
         internal const val ROUTE_LIST = 3
-
     }
 
     override fun getItemViewType(position: Int): Int = when (items[position]) {
