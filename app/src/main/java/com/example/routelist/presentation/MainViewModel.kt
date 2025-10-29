@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.routelist.presentation.adapters.mainActivity.RouteListItem
+import com.example.routelist.presentation.adapters.mainActivity.model.RoutePosition
 
 class MainViewModel(
 ) : ViewModel() {
@@ -31,8 +32,33 @@ class MainViewModel(
         uiItems.add(RouteListItem.RoutesHeader)
 
         // маршруты
-        uiItems.add(RouteListItem.RouteItem("123", "01.09 08:00", "01.09 16:00", "8"))
-        uiItems.add(RouteListItem.RouteItem("456", "02.09 09:00", "02.09 18:00", "9"))
+        uiItems.add(
+            RouteListItem.RouteItem(
+                "123",
+                "01.09 08:00",
+                "01.09 16:00",
+                "8",
+                RoutePosition.First
+            )
+        )
+        uiItems.add(
+            RouteListItem.RouteItem(
+                "123",
+                "01.09 08:00",
+                "01.09 16:00",
+                "8",
+                RoutePosition.Middle
+            )
+        )
+        uiItems.add(
+            RouteListItem.RouteItem(
+                "456",
+                "02.09 09:00",
+                "02.09 18:00",
+                "9",
+                RoutePosition.Last
+            )
+        )
 
         _items.value = uiItems
     }
