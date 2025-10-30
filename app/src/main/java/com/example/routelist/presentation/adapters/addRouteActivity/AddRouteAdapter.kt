@@ -31,7 +31,7 @@ class AddRouteAdapter(
         return when (viewType) {
 
             ROUTE_NUMBER -> RouteNumberViewHolder(
-                ItemInputRouteBinding.inflate(inflater,parent,false)
+                ItemInputRouteBinding.inflate(inflater, parent, false)
             )
 
             DATE_INFO -> DateInfoViewHolder(
@@ -39,11 +39,11 @@ class AddRouteAdapter(
             )
 
             TRAIN_INFO -> TrainInfoViewHolder(
-                ItemTrainDetailsBinding.inflate(inflater,parent,false)
+                ItemTrainDetailsBinding.inflate(inflater, parent, false)
             )
 
             PASSENGER_INFO -> PassengerInfoViewHolder(
-                ItemPassengerRouteBinding.inflate(inflater,parent,false)
+                ItemPassengerRouteBinding.inflate(inflater, parent, false)
             )
 
             else -> throw IllegalStateException("Unknown viewType")
@@ -63,7 +63,7 @@ class AddRouteAdapter(
         }
     }
 
-    override fun getItemCount(): Int  = items.size
+    override fun getItemCount(): Int = items.size
 
     companion object {
         internal const val ROUTE_NUMBER = 0

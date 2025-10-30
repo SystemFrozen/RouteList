@@ -8,6 +8,7 @@ import com.example.routelist.databinding.ItemHeaderBinding
 import com.example.routelist.databinding.ItemRouteBinding
 import com.example.routelist.databinding.ItemRoutesHeaderBinding
 import com.example.routelist.databinding.ItemStatisticCardBinding
+import com.example.routelist.presentation.adapters.mainActivity.model.RouteListItem
 
 class RouteListAdapter(
     private var items: List<RouteListItem>
