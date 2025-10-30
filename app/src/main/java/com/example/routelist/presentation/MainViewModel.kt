@@ -3,7 +3,7 @@ package com.example.routelist.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.routelist.presentation.adapters.mainActivity.RouteListItem
+import com.example.routelist.presentation.adapters.mainActivity.model.RouteListItem
 import com.example.routelist.presentation.adapters.mainActivity.model.RoutePosition
 
 class MainViewModel(
@@ -25,7 +25,7 @@ class MainViewModel(
         uiItems.add(RouteListItem.Card("Норма часов", "184"))
         uiItems.add(RouteListItem.Card("Норма на сегодня", "64"))
         uiItems.add(RouteListItem.Card("Всего", "24:00"))
-        uiItems.add(RouteListItem.Card("Пассажиром","0:00"))
+        uiItems.add(RouteListItem.Card("Пассажиром", "0:00"))
         uiItems.add(RouteListItem.Card("Ночных", "6:12"))
 
         // заголовок маршрутов

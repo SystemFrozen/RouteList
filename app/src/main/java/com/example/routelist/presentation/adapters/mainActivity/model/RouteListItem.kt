@@ -1,7 +1,4 @@
-package com.example.routelist.presentation.adapters.mainActivity
-
-import com.example.routelist.presentation.adapters.mainActivity.model.RoutePosition
-
+package com.example.routelist.presentation.adapters.mainActivity.model
 
 sealed class RouteListItem {
 
