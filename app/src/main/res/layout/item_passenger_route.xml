@@ -11,21 +11,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:divider="@android:color/darker_gray"
         android:orientation="vertical"
         android:padding="8dp"
-        android:divider="@android:color/darker_gray"
         android:showDividers="middle">
 
-        <!-- Заголовок -->
+
         <TextView
             android:id="@+id/tvPassengerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="Следование пассажиром"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:paddingBottom="8dp"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
-        <!-- Номер поезда -->
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -40,39 +40,38 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Дата выезда -->
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Дата и время выезда">
+            android:hint="Выберите дату начала">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDepartureDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:focusable="false"
-                android:inputType="none"
-                android:hint="Выберите дату" />
-
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Дата прибытия -->
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Дата и время прибытия">
+            android:hint="Выберите дату окончания">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etArrivalDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:focusable="false"
-                android:inputType="none"
-                android:hint="Выберите дату" />
-
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

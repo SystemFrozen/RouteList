@@ -8,19 +8,12 @@ import com.example.routelist.databinding.ItemInputRouteBinding
 import com.example.routelist.databinding.ItemPassengerRouteBinding
 import com.example.routelist.databinding.ItemTrainDetailsBinding
 import com.example.routelist.presentation.adapters.addRouteActivity.model.AddRouteListItem
+import com.example.routelist.presentation.adapters.addRouteActivity.model.CalendarPickerRouter
 
 class AddRouteAdapter(
-    private val items: List<AddRouteListItem>
+    private val items: MutableList<AddRouteListItem>,
+    private val router: CalendarPickerRouter
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
-    override fun getItemViewType(position: Int): Int = when (items[position]) {
-        is AddRouteListItem.RouteNumber -> ROUTE_NUMBER
-        is AddRouteListItem.DateRow -> DATE_INFO
-        is AddRouteListItem.TrainInfo -> TRAIN_INFO
-        is AddRouteListItem.PassengerInfo -> PASSENGER_INFO
-    }
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,7 +28,8 @@ class AddRouteAdapter(
             )
 
             DATE_INFO -> DateInfoViewHolder(
-                ItemInputDateBinding.inflate(inflater, parent, false)
+                ItemInputDateBinding.inflate(inflater, parent, false),
+                router
             )
 
             TRAIN_INFO -> TrainInfoViewHolder(
@@ -43,7 +37,8 @@ class AddRouteAdapter(
             )
 
             PASSENGER_INFO -> PassengerInfoViewHolder(
-                ItemPassengerRouteBinding.inflate(inflater, parent, false)
+                ItemPassengerRouteBinding.inflate(inflater, parent, false),
+                router
             )
 
             else -> throw IllegalStateException("Unknown viewType")
@@ -63,7 +58,15 @@ class AddRouteAdapter(
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemViewType(position: Int): Int = when (items[position]) {
+        is AddRouteListItem.RouteNumber -> ROUTE_NUMBER
+        is AddRouteListItem.DateRow -> DATE_INFO
+        is AddRouteListItem.TrainInfo -> TRAIN_INFO
+        is AddRouteListItem.PassengerInfo -> PASSENGER_INFO
+    }
+
+    override fun getItemCount() = items.size
+
 
     companion object {
         internal const val ROUTE_NUMBER = 0

@@ -1,4 +1,8 @@
 package com.example.routelist.di
 
-class Component {
+import dagger.Component
+
+@Component
+interface Component {
+    
 }
