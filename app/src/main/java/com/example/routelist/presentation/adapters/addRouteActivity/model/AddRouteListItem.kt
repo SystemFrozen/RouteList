@@ -5,8 +5,9 @@ sealed class AddRouteListItem {
     data class RouteNumber(val number: String) : AddRouteListItem()
 
     data class DateRow(
-        val title: String,
-        val dateTime: String
+        var dateTime: String,
+        var startDate: String,
+        var endDate: String
     ) : AddRouteListItem()
 
     data class TrainInfo(
@@ -21,7 +22,7 @@ sealed class AddRouteListItem {
 
     data class PassengerInfo(
         val trainNumber: String,
-        val startDate: String,
-        val endDate: String
+        var startDate: String,
+        var endDate: String
     ): AddRouteListItem()
 }

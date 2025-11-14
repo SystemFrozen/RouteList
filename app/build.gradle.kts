@@ -2,8 +2,7 @@ plugins {
 
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
-
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -49,15 +48,15 @@ dependencies {
 
     implementation(libs.dagger)
 //    implementation(libs.mediation.test.suite)
-    kapt(libs.dagger.compiler)
+    ksp(libs.dagger.compiler)
 
 
     implementation(libs.androidx.room.runtime)
-    kapt("androidx.room:room-compiler:2.8.3")
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     implementation (libs.androidx.recyclerview)
 

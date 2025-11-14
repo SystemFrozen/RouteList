@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.adapters.addRouteActivity.AddRouteFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -12,18 +12,18 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:paddingTop="16dp"
-        android:paddingBottom="88dp"/>
+        android:paddingEnd="16dp"
+        android:paddingBottom="88dp" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSaveRoute"
+        android:id="@+id/saveRoute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:layout_gravity="bottom|end"
-        android:contentDescription="Save Route"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/save_route"
         app:srcCompat="@android:drawable/ic_menu_save"
         app:tint="@android:color/white" />
 
