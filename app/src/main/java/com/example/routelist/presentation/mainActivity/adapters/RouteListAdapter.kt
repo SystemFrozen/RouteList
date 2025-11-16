@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.mainActivity
+package com.example.routelist.presentation.mainActivity.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.example.routelist.databinding.ItemHeaderBinding
 import com.example.routelist.databinding.ItemRouteBinding
 import com.example.routelist.databinding.ItemRoutesHeaderBinding
 import com.example.routelist.databinding.ItemStatisticCardBinding
-import com.example.routelist.presentation.adapters.mainActivity.model.RouteListItem
+import com.example.routelist.presentation.mainActivity.model.RouteListItem
 
 class RouteListAdapter(
     private var items: List<RouteListItem>

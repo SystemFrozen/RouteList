@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.addRouteActivity
+package com.example.routelist.presentation.addRouteActivity.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import com.example.routelist.databinding.ItemInputDateBinding
 import com.example.routelist.databinding.ItemInputRouteBinding
 import com.example.routelist.databinding.ItemPassengerRouteBinding
 import com.example.routelist.databinding.ItemTrainDetailsBinding
-import com.example.routelist.presentation.adapters.addRouteActivity.model.AddRouteListItem
-import com.example.routelist.presentation.adapters.addRouteActivity.model.CalendarPickerRouter
+import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
+import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerRouter
 
 class AddRouteAdapter(
     private val items: MutableList<AddRouteListItem>,
@@ -66,6 +66,8 @@ class AddRouteAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun getItems(): List<AddRouteListItem> = items
 
 
     companion object {

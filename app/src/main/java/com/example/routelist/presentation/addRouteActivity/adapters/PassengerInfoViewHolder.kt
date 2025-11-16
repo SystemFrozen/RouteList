@@ -1,9 +1,9 @@
-package com.example.routelist.presentation.adapters.addRouteActivity
+package com.example.routelist.presentation.addRouteActivity.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemPassengerRouteBinding
-import com.example.routelist.presentation.adapters.addRouteActivity.model.AddRouteListItem
-import com.example.routelist.presentation.adapters.addRouteActivity.model.CalendarPickerRouter
+import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
+import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerRouter
 
 class PassengerInfoViewHolder(
     private val binding: ItemPassengerRouteBinding,

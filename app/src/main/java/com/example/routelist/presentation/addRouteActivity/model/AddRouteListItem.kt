@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.addRouteActivity.model
+package com.example.routelist.presentation.addRouteActivity.model
 
 sealed class AddRouteListItem {
 
