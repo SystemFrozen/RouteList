@@ -16,7 +16,7 @@ sealed interface RoutePosition {
             }.build()
     }
 
-    data object  Last : RoutePosition {
+    data object Last : RoutePosition {
 
         override val shapeAppearanceModel: ShapeAppearanceModel =
             ShapeAppearanceModel().toBuilder().apply {
@@ -25,9 +25,10 @@ sealed interface RoutePosition {
             }.build()
     }
 
-    data object  Middle : RoutePosition {
+    data object Middle : RoutePosition {
 
         override val shapeAppearanceModel: ShapeAppearanceModel =
             ShapeAppearanceModel().toBuilder().build()
+
     }
 }

@@ -2,8 +2,9 @@ package com.example.routelist.domain
 
 import javax.inject.Inject
 
-//class ClearAllUseCase @Inject constructor(
+//class LoadDataUseCase @Inject constructor(
 //    private val repository: RouteRepository
 //) {
-//    suspend operator fun invoke() = repository.clearAll()
+//
+//    operator fun invoke() = repository.loadData()
 //}

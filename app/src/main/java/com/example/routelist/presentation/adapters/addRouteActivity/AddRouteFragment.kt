@@ -1,5 +1,6 @@
 package com.example.routelist.presentation.adapters.addRouteActivity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.routelist.databinding.FragmentAddRouteBinding
 import com.example.routelist.presentation.adapters.addRouteActivity.model.AddRouteListItem
 import com.example.routelist.presentation.adapters.addRouteActivity.model.CalendarPickerRouter
+import com.example.routelist.presentation.adapters.mainActivity.RouteApp
 
 
 class AddRouteFragment : Fragment() {
@@ -20,6 +22,15 @@ class AddRouteFragment : Fragment() {
     private lateinit var adapter: AddRouteAdapter
     private lateinit var items: MutableList<AddRouteListItem>
     lateinit var datePickerRouter: CalendarPickerRouter
+
+    private val component by lazy {
+        (requireActivity().application as RouteApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
