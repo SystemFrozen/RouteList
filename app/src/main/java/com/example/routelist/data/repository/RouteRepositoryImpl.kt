@@ -17,7 +17,7 @@ class RouteRepositoryImpl @Inject constructor (
 
     override fun getRouteInfoList(): Flow<List<RouteListInfo>> =
         routeInfoDao.getAllRoutesFlow().map { list ->
-            list.map { mapper.mapDbModelToEntity(it) }
+            list.map { mapper.mapDbToInfo(it) }
         }
 
     override fun getRouteInfo(id: Int): List<RouteListInfo> {
@@ -25,11 +25,11 @@ class RouteRepositoryImpl @Inject constructor (
     }
 
     override suspend fun insertRoute(route: RouteListInfo) {
-        routeInfoDao.insertRoute(mapper.mapEntityToDbModel(route))
+        routeInfoDao.insertRoute(mapper.mapInfoToDb(route))
     }
 
     override suspend fun deleteRoute(route: RouteListInfo) {
-        routeInfoDao.deleteRoute(mapper.mapEntityToDbModel(route))
+        routeInfoDao.deleteRoute(mapper.mapInfoToDb(route))
     }
 
 

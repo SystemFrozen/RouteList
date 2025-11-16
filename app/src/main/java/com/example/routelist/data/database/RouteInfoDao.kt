@@ -14,7 +14,7 @@ interface RouteInfoDao {
     fun getAllRoutesFlow(): Flow<List<RouteListDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertRoute(route: RouteListDbModel)
+    suspend fun insertRoute(route: RouteListDbModel)
 
     @Delete
     fun deleteRoute(route: RouteListDbModel)

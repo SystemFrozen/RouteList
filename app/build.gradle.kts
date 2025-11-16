@@ -47,16 +47,18 @@ android {
 dependencies {
 
     implementation(libs.dagger)
-//    implementation(libs.mediation.test.suite)
     ksp(libs.dagger.compiler)
 
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
 
-    implementation (libs.androidx.recyclerview)
+    implementation(libs.androidx.recyclerview)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

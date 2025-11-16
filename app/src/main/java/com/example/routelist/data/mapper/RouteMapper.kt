@@ -6,31 +6,35 @@ import javax.inject.Inject
 
 class RouteMapper @Inject constructor() {
 
-    fun mapDbModelToEntity(db: RouteListDbModel): RouteListInfo = RouteListInfo(
-        id = db.id,
-        routeNumber = db.routeNumber,
-        startDate = db.startDate,
-        endDate = db.endTime,
-        trainNumber = db.trainNumber,
-        axes = db.axes,
-        length = db.length,
-        startStation = db.startStation,
-        endStation = db.endStation,
-        distance = db.distance,
-        stopsCount = db.stopsCount
-    )
+    fun mapInfoToDb(info: RouteListInfo): RouteListDbModel {
+        return RouteListDbModel(
+            id = info.id,
+            routeNumber = info.routeNumber,
+            startDate = info.startDate,
+            endTime = info.endDate,
+            trainNumber = info.trainNumber,
+            axes = info.axes,
+            length = info.length,
+            startStation = info.startStation,
+            endStation = info.endStation,
+            distance = info.distance,
+            stopsCount = info.stopsCount
+        )
+    }
 
-    fun mapEntityToDbModel(entity: RouteListInfo): RouteListDbModel = RouteListDbModel (
-        id = entity.id,
-        routeNumber = entity.routeNumber,
-        startDate = entity.startDate,
-        endTime = entity.endDate,
-        trainNumber = entity.trainNumber,
-        axes = entity.axes,
-        length = entity.length,
-        startStation = entity.startStation,
-        endStation = entity.endStation,
-        distance = entity.distance,
-        stopsCount = entity.stopsCount
-    )
+    fun mapDbToInfo(db: RouteListDbModel): RouteListInfo {
+        return RouteListInfo(
+            id = db.id,
+            routeNumber = db.routeNumber,
+            startDate = db.startDate,
+            endDate = db.endTime,
+            trainNumber = db.trainNumber,
+            axes = db.axes,
+            length = db.length,
+            startStation = db.startStation,
+            endStation = db.endStation,
+            distance = db.distance,
+            stopsCount = db.stopsCount
+        )
+    }
 }

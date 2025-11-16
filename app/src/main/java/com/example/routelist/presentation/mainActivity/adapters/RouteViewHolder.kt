@@ -1,8 +1,8 @@
-package com.example.routelist.presentation.adapters.mainActivity
+package com.example.routelist.presentation.mainActivity.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemRouteBinding
-import com.example.routelist.presentation.adapters.mainActivity.model.RouteListItem
+import com.example.routelist.presentation.mainActivity.model.RouteListItem
 
 class RouteViewHolder(private val binding: ItemRouteBinding) : RecyclerView.ViewHolder(binding.root) {
 

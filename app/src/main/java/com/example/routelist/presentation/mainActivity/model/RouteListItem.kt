@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.mainActivity.model
+package com.example.routelist.presentation.mainActivity.model
 
 sealed class RouteListItem {
 

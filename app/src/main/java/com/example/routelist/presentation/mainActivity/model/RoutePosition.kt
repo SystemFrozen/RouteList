@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.mainActivity.model
+package com.example.routelist.presentation.mainActivity.model
 
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel

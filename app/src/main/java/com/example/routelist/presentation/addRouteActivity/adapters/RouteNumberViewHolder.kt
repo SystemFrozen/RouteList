@@ -1,8 +1,8 @@
-package com.example.routelist.presentation.adapters.addRouteActivity
+package com.example.routelist.presentation.addRouteActivity.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemInputRouteBinding
-import com.example.routelist.presentation.adapters.addRouteActivity.model.AddRouteListItem
+import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
 
 class RouteNumberViewHolder(
     private val binding: ItemInputRouteBinding

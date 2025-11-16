@@ -1,4 +1,4 @@
-package com.example.routelist.presentation.adapters.mainActivity
+package com.example.routelist.presentation.mainActivity.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemRoutesHeaderBinding

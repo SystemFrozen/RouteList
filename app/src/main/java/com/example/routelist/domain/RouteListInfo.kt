@@ -1,7 +1,7 @@
 package com.example.routelist.domain
 
 data class RouteListInfo(
-    val id: Int = UNDEFINED_ID,
+    val id: Int = 0,
     val routeNumber: String,
     val startDate: String,
     val endDate: String,
@@ -12,9 +12,4 @@ data class RouteListInfo(
     val endStation: String,
     val distance: String,
     val stopsCount: Int
-) {
-
-    companion object {
-        const val UNDEFINED_ID = 0
-    }
-}
+)
