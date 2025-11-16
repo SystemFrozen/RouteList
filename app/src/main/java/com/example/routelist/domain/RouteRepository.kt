@@ -4,12 +4,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface RouteRepository {
 
-    fun getAllRoutes(): Flow<List<RouteListInfo>>
+    fun getRouteInfoList(): Flow<List<RouteListInfo>>
 
-   suspend fun insertRoute(route: RouteListInfo)
+    fun getRouteInfo(id: Int): List<RouteListInfo>
 
-   suspend fun deleteRoute(route: RouteListInfo)
+    suspend fun insertRoute(route: RouteListInfo)
 
-   suspend fun clearAll()
+    suspend fun deleteRoute(route: RouteListInfo)
+
+//    fun loadData()
 
 }

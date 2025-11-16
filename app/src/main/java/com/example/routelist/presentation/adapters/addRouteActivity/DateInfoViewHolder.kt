@@ -18,13 +18,13 @@ class DateInfoViewHolder(
                 binding.tvStartDate.setText(dateTime)
             }
         }
+
         binding.tvEndDate.setOnClickListener {
             router.show { dateTime ->
                 item.endDate = dateTime
                 binding.tvEndDate.setText(dateTime)
             }
         }
+
     }
-
-
 }

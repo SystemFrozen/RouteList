@@ -1,21 +1,28 @@
 package com.example.routelist.data.repository
 
+import android.app.Application
 import com.example.routelist.data.database.RouteInfoDao
 import com.example.routelist.data.mapper.RouteMapper
 import com.example.routelist.domain.RouteListInfo
 import com.example.routelist.domain.RouteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RouteRepositoryImpl(
+class RouteRepositoryImpl @Inject constructor (
     private val mapper: RouteMapper,
-    private val routeInfoDao: RouteInfoDao
+    private val routeInfoDao: RouteInfoDao,
+    private val application: Application
 ) : RouteRepository {
 
-    override fun getAllRoutes(): Flow<List<RouteListInfo>> =
+    override fun getRouteInfoList(): Flow<List<RouteListInfo>> =
         routeInfoDao.getAllRoutesFlow().map { list ->
             list.map { mapper.mapDbModelToEntity(it) }
         }
+
+    override fun getRouteInfo(id: Int): List<RouteListInfo> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun insertRoute(route: RouteListInfo) {
         routeInfoDao.insertRoute(mapper.mapEntityToDbModel(route))
@@ -25,7 +32,5 @@ class RouteRepositoryImpl(
         routeInfoDao.deleteRoute(mapper.mapEntityToDbModel(route))
     }
 
-    override suspend fun clearAll() {
-        routeInfoDao.clearAll()
-    }
+
 }

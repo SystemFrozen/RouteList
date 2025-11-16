@@ -19,6 +19,4 @@ interface RouteInfoDao {
     @Delete
     fun deleteRoute(route: RouteListDbModel)
 
-    @Query("DELETE FROM routes")
-    fun clearAll()
 }
