@@ -11,7 +11,6 @@ class TrainInfoViewHolder(
 
     fun bind(item: AddRouteListItem.TrainInfo) {
 
-
         binding.etTrainNumber.setText(item.trainNumber)
         binding.etComposition.setText(item.composition.toString())
         binding.etStationFrom.setText(item.startStation.toString())

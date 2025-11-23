@@ -21,7 +21,7 @@ class DateInfoViewHolder(
             router.show { dateTime ->
                 val updated = item.copy(startDate = dateTime)
 
-                onChange(bindingAdapterPosition, updated)
+                onChange(absoluteAdapterPosition, updated)
 
                 binding.tvStartDate.setText(dateTime)
             }
@@ -32,7 +32,7 @@ class DateInfoViewHolder(
 
                 val updated = item.copy(endDate = dateTime)
 
-                onChange(bindingAdapterPosition, updated)
+                onChange(absoluteAdapterPosition, updated)
 
                 binding.tvEndDate.setText(dateTime)
             }

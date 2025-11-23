@@ -1,5 +1,6 @@
 package com.example.routelist.presentation.addRouteActivity.adapters
 
+import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemInputRouteBinding
@@ -11,6 +12,7 @@ class RouteNumberViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: AddRouteListItem.RouteNumber) {
+
         binding.etRouteNumber.setText(item.number)
 
 

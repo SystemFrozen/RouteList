@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.routelist.databinding.FragmentAddRouteBinding
 import com.example.routelist.presentation.addRouteActivity.adapters.AddRouteAdapter
-import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
 import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerRouter
 import com.example.routelist.presentation.mainActivity.RouteApp
 import com.example.routelist.presentation.mainActivity.ViewModelFactory
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -56,6 +59,16 @@ class AddRouteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.items.flowWithLifecycle(lifecycle).collect {
+                adapter.populate(it)
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.errorFlow.flowWithLifecycle(lifecycle).collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
         setupRecyclerView()
         saveButton()
     }
@@ -69,14 +82,8 @@ class AddRouteFragment : Fragment() {
 
         val router = CalendarPickerRouter(requireContext())
 
-        val items = mutableListOf(
-            AddRouteListItem.RouteNumber(""),
-            AddRouteListItem.DateRow("", "", ""),
-            AddRouteListItem.TrainInfo("", "", "", "", "", ""),
-            AddRouteListItem.PassengerInfo("", "", "")
-        )
-
-        adapter = AddRouteAdapter(items, router)
+        adapter = AddRouteAdapter(router, viewModel)
+        binding.rvAddRoute.itemAnimator = null
         binding.rvAddRoute.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAddRoute.adapter = adapter
     }
@@ -85,46 +92,17 @@ class AddRouteFragment : Fragment() {
     private fun saveButton() {
 
         binding.saveRoute.setOnClickListener {
+            viewModel.validate()
 
-            val items = adapter.getItems()
-
-            if (!validate(items)) {
-                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            adapter.getItems().forEachIndexed { index, item ->
-                viewModel.updateItem(index, item)
-            }
-
-
-            viewModel.saveRoute()
-
-            Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
-            parentFragmentManager.popBackStack()
+            // Это потом через вью модель вызывать надо будет
+//            viewModel.saveRoute()
+//
+//            Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
+//            parentFragmentManager.popBackStack()
 
         }
 
     }
-
-    //validate я потом перенесу в viewModel
-    private fun validate(items: List<AddRouteListItem>): Boolean {
-        items.forEach { item ->
-            when (item) {
-                is AddRouteListItem.RouteNumber -> {
-                    if (item.number.isBlank()) return false
-                }
-
-                is AddRouteListItem.DateRow -> {
-                    if (item.startDate.isBlank() || item.endDate.isBlank()) return false
-                }
-
-                else -> return false
-            }
-        }
-        return true
-    }
-
 }
 
 
