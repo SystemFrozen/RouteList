@@ -1,6 +1,5 @@
 package com.example.routelist.data.repository
 
-import android.app.Application
 import com.example.routelist.data.database.RouteInfoDao
 import com.example.routelist.data.mapper.RouteMapper
 import com.example.routelist.domain.RouteListInfo
@@ -9,10 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RouteRepositoryImpl @Inject constructor (
+class RouteRepositoryImpl @Inject constructor(
     private val mapper: RouteMapper,
     private val routeInfoDao: RouteInfoDao,
-    private val application: Application
 ) : RouteRepository {
 
     override fun getRouteInfoList(): Flow<List<RouteListInfo>> =
@@ -31,6 +29,5 @@ class RouteRepositoryImpl @Inject constructor (
     override suspend fun deleteRoute(route: RouteListInfo) {
         routeInfoDao.deleteRoute(mapper.mapInfoToDb(route))
     }
-
 
 }

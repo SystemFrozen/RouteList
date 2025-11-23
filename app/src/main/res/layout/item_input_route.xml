@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tilRouteNumber"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginBottom="8dp"
-    android:hint="Номер маршрута"
-    app:boxBackgroundColor="@color/field_bg"
-    app:boxBackgroundMode="filled"
-    app:boxCornerRadiusBottomEnd="12dp"
-    app:boxCornerRadiusBottomStart="12dp"
-    app:boxCornerRadiusTopEnd="12dp"
-    app:boxCornerRadiusTopStart="12dp"
-    app:hintEnabled="true"
-    app:startIconTint="@color/gray_hint">
+    android:layout_margin="16dp"
+    android:padding="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etRouteNumber"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:paddingStart="12dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="14dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray_hint" />
-</com.google.android.material.textfield.TextInputLayout>
+        android:divider="@android:color/darker_gray"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp"
+            android:text="Выбор номера маршрута"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Номер маршрута">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRouteNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

@@ -13,5 +13,4 @@ class RouteViewHolder(private val binding: ItemRouteBinding) : RecyclerView.View
         binding.tvHours.text = item.hours
         binding.cardViewMaterial.shapeAppearanceModel = item.routePosition.shapeAppearanceModel
     }
-
 }

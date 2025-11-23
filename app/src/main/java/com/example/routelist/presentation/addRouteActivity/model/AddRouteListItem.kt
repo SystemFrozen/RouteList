@@ -5,24 +5,23 @@ sealed class AddRouteListItem {
     data class RouteNumber(val number: String) : AddRouteListItem()
 
     data class DateRow(
-        var dateTime: String,
-        var startDate: String,
-        var endDate: String
+        val dateTime: String?,
+        val startDate: String,
+        val endDate: String
     ) : AddRouteListItem()
 
     data class TrainInfo(
         val trainNumber: String,
-        val axes: Int,
-        val length: String,
+        val composition: String,
         val startStation: String,
         val endStation: String,
         val distance: String,
-        val stopsCount: Int
-    ): AddRouteListItem()
+        val stopsCount: String
+    ) : AddRouteListItem()
 
     data class PassengerInfo(
-        val trainNumber: String,
-        var startDate: String,
-        var endDate: String
-    ): AddRouteListItem()
+        val passengerTrainNumber: String,
+        val passengerStartDate: String,
+        val passengerEndDate: String
+    ) : AddRouteListItem()
 }

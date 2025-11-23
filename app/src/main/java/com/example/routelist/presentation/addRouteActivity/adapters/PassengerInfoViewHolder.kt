@@ -7,29 +7,35 @@ import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerR
 
 class PassengerInfoViewHolder(
     private val binding: ItemPassengerRouteBinding,
-    private val router: CalendarPickerRouter
+    private val router: CalendarPickerRouter,
+    private val onChange: (Int, AddRouteListItem.PassengerInfo) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: AddRouteListItem.PassengerInfo) {
 
-        binding.etPassengerTrainNumber.setText(item.trainNumber.toString())
+        binding.etPassengerTrainNumber.setText(item.passengerTrainNumber.toString())
+        binding.etArrivalDate.setText(item.passengerStartDate)
+        binding.etDepartureDate.setText(item.passengerEndDate)
+
 
         binding.etArrivalDate.setOnClickListener {
-           router.show { dateTime ->
-               item.startDate = dateTime
-               binding.etArrivalDate.setText(dateTime)
+            router.show { dateTime ->
+                val updated = item.copy(passengerStartDate = dateTime)
+                onChange(bindingAdapterPosition, updated)
 
-           }
+                binding.etArrivalDate.setText(dateTime)
+            }
         }
-
+        // вот этот
         binding.etDepartureDate.setOnClickListener {
-           router.show { dateTime ->
-               item.endDate = dateTime
-               binding.etDepartureDate.setText(dateTime)
-           }
+            router.show { dateTime ->
+                val updated = item.copy(passengerEndDate = dateTime)
+                onChange(bindingAdapterPosition, updated)
+
+                binding.etDepartureDate.setText(dateTime)
+            }
         }
     }
-
 
 
 }

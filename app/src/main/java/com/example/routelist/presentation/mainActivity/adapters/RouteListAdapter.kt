@@ -3,16 +3,18 @@ package com.example.routelist.presentation.mainActivity.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemHeaderBinding
 import com.example.routelist.databinding.ItemRouteBinding
 import com.example.routelist.databinding.ItemRoutesHeaderBinding
 import com.example.routelist.databinding.ItemStatisticCardBinding
+import com.example.routelist.presentation.mainActivity.model.MonthYearPickerRouter
 import com.example.routelist.presentation.mainActivity.model.RouteListItem
 
 class RouteListAdapter(
-    private var items: List<RouteListItem>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val router: MonthYearPickerRouter
+) : ListAdapter<RouteListItem, RecyclerView.ViewHolder>(RouteInfoDiffCallback()) {
 
     companion object {
         internal const val CALENDAR_HEADER = 0
@@ -21,7 +23,7 @@ class RouteListAdapter(
         internal const val ROUTE_LIST = 3
     }
 
-    override fun getItemViewType(position: Int): Int = when (items[position]) {
+    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is RouteListItem.CalendarHeader -> CALENDAR_HEADER
         RouteListItem.RoutesHeader -> ROUTES_HEADER
         is RouteListItem.Card -> CARD_INFO
@@ -36,7 +38,8 @@ class RouteListAdapter(
 
         return when (viewType) {
             CALENDAR_HEADER -> CalendarViewHolder(
-                ItemHeaderBinding.inflate(inflater, parent, false)
+                ItemHeaderBinding.inflate(inflater, parent, false),
+                router
             )
 
             CARD_INFO -> CardViewHolder(
@@ -59,23 +62,21 @@ class RouteListAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        when (val item = items[position]) {
-            is RouteListItem.CalendarHeader -> (holder as CalendarViewHolder).bind()
+
+        when (val item = getItem(position)) {
+            is RouteListItem.CalendarHeader -> (holder as CalendarViewHolder).bind(item)
             is RouteListItem.Card -> (holder as CardViewHolder).bind(item)
             is RouteListItem.RoutesHeader -> (holder as RoutesHeaderViewHolder).bind()
             is RouteListItem.RouteItem -> (holder as RouteViewHolder).bind(item)
         }
     }
 
-    override fun getItemCount(): Int = items.size
-
-    fun submitList(newItems: List<RouteListItem>) {
-        items = newItems
-        notifyDataSetChanged()
+    fun populate(newItems: List<RouteListItem>) {
+        submitList(newItems)
     }
 
-    fun getCardSpanSize(cardCount: Int) = object: GridLayoutManager.SpanSizeLookup(){
-       override fun getSpanSize(position: Int): Int {
+    fun getCardSpanSize(cardCount: Int) = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
             return when (getItemViewType(position)) {
                 CALENDAR_HEADER, ROUTES_HEADER, ROUTE_LIST -> cardCount
                 CARD_INFO -> 1
@@ -83,6 +84,4 @@ class RouteListAdapter(
             }
         }
     }
-
-
 }

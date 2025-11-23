@@ -11,14 +11,17 @@ class RouteMapper @Inject constructor() {
             id = info.id,
             routeNumber = info.routeNumber,
             startDate = info.startDate,
-            endTime = info.endDate,
+            endDate = info.endDate,
+            yearMonth = info.yearMonth,
             trainNumber = info.trainNumber,
-            axes = info.axes,
-            length = info.length,
+            composition = info.composition,
             startStation = info.startStation,
             endStation = info.endStation,
             distance = info.distance,
-            stopsCount = info.stopsCount
+            stopsCount = info.stopsCount,
+            passengerTrainNumber = info.passengerTrainNumber,
+            passengerStartDate = info.passengerStartDate,
+            passengerEndDate = info.passengerEndDate
         )
     }
 
@@ -27,14 +30,17 @@ class RouteMapper @Inject constructor() {
             id = db.id,
             routeNumber = db.routeNumber,
             startDate = db.startDate,
-            endDate = db.endTime,
+            endDate = db.endDate,
+            yearMonth = db.yearMonth,
             trainNumber = db.trainNumber,
-            axes = db.axes,
-            length = db.length,
+            composition = db.composition,
             startStation = db.startStation,
             endStation = db.endStation,
             distance = db.distance,
-            stopsCount = db.stopsCount
+            stopsCount = db.stopsCount,
+            passengerTrainNumber = db.passengerTrainNumber,
+            passengerStartDate = db.passengerStartDate,
+            passengerEndDate = db.passengerEndDate
         )
     }
 }

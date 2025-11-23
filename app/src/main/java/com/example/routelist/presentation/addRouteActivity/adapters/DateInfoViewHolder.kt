@@ -8,20 +8,32 @@ import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerR
 
 class DateInfoViewHolder(
     private val binding: ItemInputDateBinding,
-    private val router: CalendarPickerRouter
+    private val router: CalendarPickerRouter,
+    private val onChange: (Int, AddRouteListItem.DateRow) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: AddRouteListItem.DateRow) {
+        binding.tvStartDate.setText(item.startDate)
+        binding.tvEndDate.setText(item.endDate)
+
+//тут проблема в том, что данные вводятся, но на выводе остается только, этот пропадает
         binding.tvStartDate.setOnClickListener {
             router.show { dateTime ->
-                item.startDate = dateTime
+                val updated = item.copy(startDate = dateTime)
+
+                onChange(bindingAdapterPosition, updated)
+
                 binding.tvStartDate.setText(dateTime)
             }
         }
-
+// вот этот
         binding.tvEndDate.setOnClickListener {
             router.show { dateTime ->
-                item.endDate = dateTime
+
+                val updated = item.copy(endDate = dateTime)
+
+                onChange(bindingAdapterPosition, updated)
+
                 binding.tvEndDate.setText(dateTime)
             }
         }

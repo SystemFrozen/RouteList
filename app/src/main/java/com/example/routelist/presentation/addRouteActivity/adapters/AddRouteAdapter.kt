@@ -25,21 +25,32 @@ class AddRouteAdapter(
 
             ROUTE_NUMBER -> RouteNumberViewHolder(
                 ItemInputRouteBinding.inflate(inflater, parent, false)
-            )
+            ) { pos, newItem ->
+                updateItem(pos, newItem)
+            }
+
 
             DATE_INFO -> DateInfoViewHolder(
                 ItemInputDateBinding.inflate(inflater, parent, false),
                 router
-            )
+            ) { pos, newItem ->
+                updateItem(pos, newItem)
+            }
 
             TRAIN_INFO -> TrainInfoViewHolder(
                 ItemTrainDetailsBinding.inflate(inflater, parent, false)
-            )
+            ){pos, newItem ->
+                updateItem(pos,newItem)
+
+            }
 
             PASSENGER_INFO -> PassengerInfoViewHolder(
                 ItemPassengerRouteBinding.inflate(inflater, parent, false),
                 router
-            )
+            ) { pos, newItem ->
+
+                updateItem(pos, newItem)
+            }
 
             else -> throw IllegalStateException("Unknown viewType")
         }
@@ -68,6 +79,13 @@ class AddRouteAdapter(
     override fun getItemCount() = items.size
 
     fun getItems(): List<AddRouteListItem> = items
+
+    // типо notify
+    fun updateItem(position: Int, newItem: AddRouteListItem) {
+        if (position != RecyclerView.NO_POSITION) {
+            items[position] = newItem
+        }
+    }
 
 
     companion object {

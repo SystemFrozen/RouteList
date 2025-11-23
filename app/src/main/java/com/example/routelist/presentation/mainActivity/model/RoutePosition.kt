@@ -29,6 +29,5 @@ sealed interface RoutePosition {
 
         override val shapeAppearanceModel: ShapeAppearanceModel =
             ShapeAppearanceModel().toBuilder().build()
-
     }
 }

@@ -4,11 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemRoutesHeaderBinding
 
 class RoutesHeaderViewHolder(private val binding: ItemRoutesHeaderBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    RecyclerView.ViewHolder(binding.root), CoreViewHolder {
 
-    fun bind() {
+    override fun bind() {
         binding.tvRoutesHeader.text = "Маршрутные листы"
     }
-
-
 }

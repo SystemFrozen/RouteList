@@ -14,8 +14,8 @@ import com.example.routelist.R
 import com.example.routelist.databinding.FragmentMainBinding
 import com.example.routelist.presentation.addRouteActivity.AddRouteFragment
 import com.example.routelist.presentation.mainActivity.adapters.RouteListAdapter
+import com.example.routelist.presentation.mainActivity.model.MonthYearPickerRouter
 import com.example.routelist.presentation.mainActivity.model.RouteListItem
-import com.example.routelist.presentation.mainActivity.model.RoutePosition
 import javax.inject.Inject
 
 
@@ -26,11 +26,14 @@ class RouteListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    private lateinit var monthYearPicker: MonthYearPickerRouter
+
+
     private lateinit var adapter: RouteListAdapter
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
-        get() = _binding ?: throw RuntimeException("FragmentMainBinding is null")
+        get() = _binding!!
 
 
     private val component by lazy {
@@ -57,15 +60,17 @@ class RouteListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteViewModel::class]
 
+        setupRecyclerView()
+        observeViewModel()
+
+        monthYearPicker = MonthYearPickerRouter(requireContext())
+
         binding.addNewRoute.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.route_list_container, AddRouteFragment())
                 .addToBackStack(null)
                 .commit()
         }
-
-        setupRecyclerView()
-        loadData()
 
 
     }
@@ -80,7 +85,10 @@ class RouteListFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvMain.layoutManager = layoutManager
 
-        adapter = RouteListAdapter(emptyList())
+
+        val router = MonthYearPickerRouter(requireContext())
+
+        adapter = RouteListAdapter(router)
         binding.rvMain.adapter = adapter
 
 
@@ -96,20 +104,10 @@ class RouteListFragment : Fragment() {
 
     }
 
-    private fun loadData() {
-        val uiItems = listOf(
-            RouteListItem.CalendarHeader("Сентябрь 2025"),
-            RouteListItem.Card("Норма часов", "184"),
-            RouteListItem.Card("Норма на сегодня", "64"),
-            RouteListItem.Card("Всего", "24:00"),
-            RouteListItem.Card("Пассажиром", "0:00"),
-            RouteListItem.Card("Ночных", "6:12"),
-            RouteListItem.RoutesHeader,
-            RouteListItem.RouteItem("123", "01.09 08:00", "01.09 16:00", "8", RoutePosition.First),
-            RouteListItem.RouteItem("123", "01.09 08:00", "01.09 16:00", "8", RoutePosition.Middle),
-            RouteListItem.RouteItem("456", "02.09 09:00", "02.09 18:00", "9", RoutePosition.Last)
-        )
-        adapter.submitList(uiItems)
+    private fun observeViewModel() {
+        viewModel.items.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+        }
     }
 
 

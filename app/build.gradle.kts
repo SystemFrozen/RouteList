@@ -47,9 +47,10 @@ android {
 dependencies {
 
     implementation(libs.dagger)
+    implementation(libs.androidx.ui.desktop)
     ksp(libs.dagger.compiler)
 
-
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 

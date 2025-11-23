@@ -20,17 +20,21 @@ import javax.inject.Inject
 
 class AddRouteFragment : Fragment() {
 
-    private lateinit var viewModel: AddRouteViewModel
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+
     private var _binding: FragmentAddRouteBinding? = null
     private val binding: FragmentAddRouteBinding
-        get() = _binding ?: throw RuntimeException("FragmentAddRouteBinding is null")
+        get() = _binding!!
+
 
     private lateinit var adapter: AddRouteAdapter
 
+
+    val viewModel: AddRouteViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[AddRouteViewModel::class]
+    }
 
     private val component by lazy {
         (requireActivity().application as RouteApp).component
@@ -52,15 +56,8 @@ class AddRouteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)[AddRouteViewModel::class]
-
         setupRecyclerView()
-
-
         saveButton()
-
-
     }
 
     override fun onDestroyView() {
@@ -75,35 +72,57 @@ class AddRouteFragment : Fragment() {
         val items = mutableListOf(
             AddRouteListItem.RouteNumber(""),
             AddRouteListItem.DateRow("", "", ""),
-            AddRouteListItem.TrainInfo("", 0, "", "", "", "", 0),
+            AddRouteListItem.TrainInfo("", "", "", "", "", ""),
             AddRouteListItem.PassengerInfo("", "", "")
         )
 
         adapter = AddRouteAdapter(items, router)
-
-
-
         binding.rvAddRoute.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAddRoute.adapter = adapter
     }
 
+
     private fun saveButton() {
 
         binding.saveRoute.setOnClickListener {
+
+            val items = adapter.getItems()
+
+            if (!validate(items)) {
+                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             adapter.getItems().forEachIndexed { index, item ->
                 viewModel.updateItem(index, item)
             }
 
 
-            // сохраняем маршрут через ViewModel
             viewModel.saveRoute()
 
             Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
-            parentFragmentManager.popBackStack() // возвращаемся на список маршрутов
+            parentFragmentManager.popBackStack()
 
         }
 
+    }
+
+    //validate я потом перенесу в viewModel
+    private fun validate(items: List<AddRouteListItem>): Boolean {
+        items.forEach { item ->
+            when (item) {
+                is AddRouteListItem.RouteNumber -> {
+                    if (item.number.isBlank()) return false
+                }
+
+                is AddRouteListItem.DateRow -> {
+                    if (item.startDate.isBlank() || item.endDate.isBlank()) return false
+                }
+
+                else -> return false
+            }
+        }
+        return true
     }
 
 }

@@ -2,9 +2,13 @@ package com.example.routelist.presentation.mainActivity.model
 
 sealed class RouteListItem {
 
-    data class CalendarHeader(val monthYear: String) : RouteListItem()
+    data class CalendarHeader(
+        var month: Int,
+        var year: Int
+    ) : RouteListItem()
 
-    object RoutesHeader : RouteListItem()
+
+    data object RoutesHeader : RouteListItem()
 
     data class Card(
         val title: String,

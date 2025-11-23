@@ -7,14 +7,21 @@ import androidx.room.PrimaryKey
 data class RouteListDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+
     val routeNumber: String,
     val startDate: String,
-    val endTime: String,
+    val endDate: String,
+
+    val yearMonth: String,
+
     val trainNumber: String,
-    val axes: Int,
-    val length: String,
+    val composition: String,
     val startStation: String,
     val endStation: String,
     val distance: String,
-    val stopsCount: Int
+    val stopsCount: String,
+
+    val passengerTrainNumber: String?,
+    val passengerStartDate: String?,
+    val passengerEndDate: String?
 )

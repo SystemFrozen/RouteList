@@ -7,4 +7,5 @@
     android:padding="8dp"
     android:text="Сентябрь 2025"
     android:textSize="20sp"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+    />
