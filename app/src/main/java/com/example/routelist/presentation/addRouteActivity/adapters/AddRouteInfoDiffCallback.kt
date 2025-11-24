@@ -9,7 +9,7 @@ class AddRouteInfoDiffCallback : DiffUtil.ItemCallback<AddRouteListItem>() {
         oldItem: AddRouteListItem,
         newItem: AddRouteListItem
     ): Boolean {
-        return true
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(

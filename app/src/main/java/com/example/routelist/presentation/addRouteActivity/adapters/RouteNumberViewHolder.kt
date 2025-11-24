@@ -1,6 +1,5 @@
 package com.example.routelist.presentation.addRouteActivity.adapters
 
-import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemInputRouteBinding
@@ -16,7 +15,6 @@ class RouteNumberViewHolder(
         binding.etRouteNumber.setText(item.number)
 
 
-        //вот это работает, остальные нет, мб внатуре каждому надо делать отдельный, но это долго
         binding.etRouteNumber.addTextChangedListener {
             val updated = item.copy(number = it.toString())
             onChange(bindingAdapterPosition, updated)

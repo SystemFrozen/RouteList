@@ -47,7 +47,7 @@ class AddRouteAdapter(
 
             TRAIN_INFO -> TrainInfoViewHolder(
                 ItemTrainDetailsBinding.inflate(inflater, parent, false),
-                onChange
+                { _, item -> viewModel.updateTrain(item) }
             )
 
             PASSENGER_INFO -> PassengerInfoViewHolder(

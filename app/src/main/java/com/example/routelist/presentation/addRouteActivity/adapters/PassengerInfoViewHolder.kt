@@ -26,7 +26,7 @@ class PassengerInfoViewHolder(
                 binding.etArrivalDate.setText(dateTime)
             }
         }
-        // вот этот
+
         binding.etDepartureDate.setOnClickListener {
             router.show { dateTime ->
                 val updated = item.copy(passengerEndDate = dateTime)

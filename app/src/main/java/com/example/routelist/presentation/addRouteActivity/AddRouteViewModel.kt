@@ -1,7 +1,6 @@
 package com.example.routelist.presentation.addRouteActivity
 
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.routelist.domain.InsertRouteUseCase
@@ -18,8 +17,7 @@ import javax.inject.Inject
 
 
 class AddRouteViewModel @Inject constructor(
-    private val insertRouteUseCase: InsertRouteUseCase,
-    private val application: Application
+    private val insertRouteUseCase: InsertRouteUseCase
 ) : ViewModel() {
 
     // Потом стейт сделаешь при рефаче
@@ -38,6 +36,12 @@ class AddRouteViewModel @Inject constructor(
     fun updateRoute(newItem: AddRouteListItem) {
         val list = items.value.toMutableList()
         list[0] = newItem
+        items.value = list
+    }
+
+    fun updateTrain(newItem: AddRouteListItem) {
+        val list = items.value.toMutableList()
+        list[2] = newItem
         items.value = list
     }
 
@@ -95,13 +99,13 @@ class AddRouteViewModel @Inject constructor(
     }
 
     private fun isValidDate(s: String) = parse(s) != null
+
     private fun parse(s: String) = try {
         LocalDateTime.parse(s, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
     } catch (e: Exception) {
         null
     }
 
-    //validate я потом перенесу в viewModel
     fun validate() {
         viewModelScope.launch {
             if (!items.value.all { it.isValid() }) errorFlow.emit("Заполните все поля")
