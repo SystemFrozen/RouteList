@@ -2,18 +2,24 @@ package com.example.routelist.presentation.addRouteActivity.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.routelist.databinding.ItemInputDateBinding
 import com.example.routelist.databinding.ItemInputRouteBinding
 import com.example.routelist.databinding.ItemPassengerRouteBinding
 import com.example.routelist.databinding.ItemTrainDetailsBinding
+import com.example.routelist.presentation.addRouteActivity.AddRouteViewModel
 import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
 import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerRouter
 
 class AddRouteAdapter(
-    private val items: MutableList<AddRouteListItem>,
-    private val router: CalendarPickerRouter
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val router: CalendarPickerRouter,
+    private val viewModel: AddRouteViewModel,
+) : ListAdapter<AddRouteListItem, RecyclerView.ViewHolder>(AddRouteInfoDiffCallback()) {
+
+    fun populate(items: List<AddRouteListItem>) {
+        submitList(items)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,36 +27,34 @@ class AddRouteAdapter(
     ): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
+        val onChange: (Int, AddRouteListItem) -> Unit = { pos, newItem ->
+            //viewModel.updateItem(pos, newItem)
+        }
+
         return when (viewType) {
 
             ROUTE_NUMBER -> RouteNumberViewHolder(
-                ItemInputRouteBinding.inflate(inflater, parent, false)
-            ) { pos, newItem ->
-                updateItem(pos, newItem)
-            }
+                ItemInputRouteBinding.inflate(inflater, parent, false),
+                { _, item -> viewModel.updateRoute(item) }
+            )
 
 
             DATE_INFO -> DateInfoViewHolder(
                 ItemInputDateBinding.inflate(inflater, parent, false),
-                router
-            ) { pos, newItem ->
-                updateItem(pos, newItem)
-            }
+                router,
+                onChange
+            )
 
             TRAIN_INFO -> TrainInfoViewHolder(
-                ItemTrainDetailsBinding.inflate(inflater, parent, false)
-            ){pos, newItem ->
-                updateItem(pos,newItem)
-
-            }
+                ItemTrainDetailsBinding.inflate(inflater, parent, false),
+                { _, item -> viewModel.updateTrain(item) }
+            )
 
             PASSENGER_INFO -> PassengerInfoViewHolder(
                 ItemPassengerRouteBinding.inflate(inflater, parent, false),
-                router
-            ) { pos, newItem ->
-
-                updateItem(pos, newItem)
-            }
+                router,
+                onChange
+            )
 
             else -> throw IllegalStateException("Unknown viewType")
         }
@@ -61,7 +65,7 @@ class AddRouteAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        when (val item = items[position]) {
+        when (val item = getItem(position)) {
             is AddRouteListItem.RouteNumber -> (holder as RouteNumberViewHolder).bind(item)
             is AddRouteListItem.DateRow -> (holder as DateInfoViewHolder).bind(item)
             is AddRouteListItem.TrainInfo -> (holder as TrainInfoViewHolder).bind(item)
@@ -69,24 +73,12 @@ class AddRouteAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = when (items[position]) {
+    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is AddRouteListItem.RouteNumber -> ROUTE_NUMBER
         is AddRouteListItem.DateRow -> DATE_INFO
         is AddRouteListItem.TrainInfo -> TRAIN_INFO
         is AddRouteListItem.PassengerInfo -> PASSENGER_INFO
     }
-
-    override fun getItemCount() = items.size
-
-    fun getItems(): List<AddRouteListItem> = items
-
-    // типо notify
-    fun updateItem(position: Int, newItem: AddRouteListItem) {
-        if (position != RecyclerView.NO_POSITION) {
-            items[position] = newItem
-        }
-    }
-
 
     companion object {
         internal const val ROUTE_NUMBER = 0

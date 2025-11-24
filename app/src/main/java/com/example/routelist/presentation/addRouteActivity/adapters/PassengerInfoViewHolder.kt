@@ -21,16 +21,16 @@ class PassengerInfoViewHolder(
         binding.etArrivalDate.setOnClickListener {
             router.show { dateTime ->
                 val updated = item.copy(passengerStartDate = dateTime)
-                onChange(bindingAdapterPosition, updated)
+                onChange(absoluteAdapterPosition, updated)
 
                 binding.etArrivalDate.setText(dateTime)
             }
         }
-        // вот этот
+
         binding.etDepartureDate.setOnClickListener {
             router.show { dateTime ->
                 val updated = item.copy(passengerEndDate = dateTime)
-                onChange(bindingAdapterPosition, updated)
+                onChange(absoluteAdapterPosition, updated)
 
                 binding.etDepartureDate.setText(dateTime)
             }
