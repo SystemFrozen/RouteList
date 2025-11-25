@@ -57,18 +57,17 @@ class AddRouteViewModel @Inject constructor(
         viewModelScope.launch {
             val list = items.value
 
-            val num = (list[0] as AddRouteListItem.RouteNumber).number.trim()
-            val start = (list[1] as AddRouteListItem.DateRow).startDate.trim()
-            val end = (list[1] as AddRouteListItem.DateRow).endDate.trim()
+            val num = (list[0] as AddRouteListItem.RouteNumber)
+            val date = (list[1] as AddRouteListItem.DateRow)
             val train = (list[2] as AddRouteListItem.TrainInfo)
 
             val error = when {
-                num.isEmpty() -> "Введите номер маршрута"
-                start.isEmpty() -> "Введите время отправления"
-                end.isEmpty() -> "Введите время прибытия"
-                !isValidDate(start) -> "Неверная дата отправления"
-                !isValidDate(end) -> "Неверная дата прибытия"
-                parse(start)!! >= parse(end)!! -> "Прибытие должно быть позже отправления"
+                num.number.isEmpty() -> "Введите номер маршрута"
+                date.startDate.isEmpty() -> "Введите время отправления"
+                date.endDate.isEmpty() -> "Введите время прибытия"
+                !isValidDate(date.startDate) -> "Неверная дата отправления"
+                !isValidDate(date.endDate) -> "Неверная дата прибытия"
+                parse(date.startDate)!! >= parse(date.endDate)!! -> "Прибытие должно быть позже отправления"
                 train.trainNumber.trim().isEmpty() -> "Введите номер поезда"
                 train.startStation.trim().isEmpty() && train.endStation.trim()
                     .isEmpty() -> "Укажите станции"
@@ -82,14 +81,16 @@ class AddRouteViewModel @Inject constructor(
                 errorFlow.emit(error)
                 return@launch
             }
-
             withContext(Dispatchers.IO) {
                 insertRouteUseCase(
                     RouteListInfo(
-                        routeNumber = num,
-                        startDate = start,
-                        endDate = end,
-                        yearMonth = start.substring(6, 10) + "-" + start.substring(3, 5),
+                        routeNumber = num.number,
+                        startDate = date.startDate,
+                        endDate = date.endDate,
+                        yearMonth = date.startDate.substring(
+                            6,
+                            10
+                        ) + "-" + date.startDate.substring(3, 5),
                         trainNumber = train.trainNumber.trim(),
                         composition = train.composition.trim(),
                         startStation = train.startStation.trim(),

@@ -69,9 +69,13 @@ class AddRouteFragment : Fragment() {
         val dateRowInfo = viewModel.items.value[1] as AddRouteListItem.DateRow
         val passenger = viewModel.items.value[3] as AddRouteListItem.PassengerInfo
         addTextChangeListeners()
+
         setupDateRow(dateRowInfo)
+
         setupPassengerInfo(passenger)
+
         setupRecyclerView()
+
         saveButton()
     }
 
@@ -99,13 +103,59 @@ class AddRouteFragment : Fragment() {
 
         binding.etTrainNumber.addTextChangedListener(
             TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[0] as AddRouteListItem.TrainInfo
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
                 val newNumber = oldNumber.copy(trainNumber = text)
-                viewModel.updateItem(0, newNumber)
+                viewModel.updateItem(2, newNumber)
             }
         )
 
+        binding.etComposition.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
+                val newNumber = oldNumber.copy(composition = text)
+                viewModel.updateItem(2, newNumber)
+            }
+        )
 
+        binding.etStationFrom.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
+                val newNumber = oldNumber.copy(startStation = text)
+                viewModel.updateItem(2, newNumber)
+            }
+        )
+
+        binding.etStationTo.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
+                val newNumber = oldNumber.copy(endStation = text)
+                viewModel.updateItem(2, newNumber)
+            }
+        )
+
+        binding.etDistance.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
+                val newNumber = oldNumber.copy(distance = text)
+                viewModel.updateItem(2, newNumber)
+            }
+        )
+
+        binding.etStops.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
+                val newNumber = oldNumber.copy(stopsCount = text)
+                viewModel.updateItem(2, newNumber)
+            }
+        )
+
+        binding.etPassengerTrainNumber.addTextChangedListener(
+            TextChangedImpl { text ->
+                val oldNumber = viewModel.items.value[3] as AddRouteListItem.PassengerInfo
+                val newNumber = oldNumber.copy(passengerTrainNumber = text)
+                viewModel.updateItem(3, newNumber)
+            }
+        )
     }
 
     fun setupDateRow(item: AddRouteListItem.DateRow) {
@@ -114,7 +164,8 @@ class AddRouteFragment : Fragment() {
 
         binding.tvStartDate.setOnClickListener {
             CalendarPickerRouter(requireContext()).show { dateTime ->
-                val updated = item.copy(startDate = dateTime)
+                val old = viewModel.items.value[1] as AddRouteListItem.DateRow
+                val updated = old.copy(startDate = dateTime)
                 viewModel.updateItem(1, updated)
                 binding.tvStartDate.setText(dateTime)
             }
@@ -122,15 +173,16 @@ class AddRouteFragment : Fragment() {
 
         binding.tvEndDate.setOnClickListener {
             CalendarPickerRouter(requireContext()).show { dateTime ->
-                val updated = item.copy(endDate = dateTime)
+                val old = viewModel.items.value[1] as AddRouteListItem.DateRow
+                val updated = old.copy(endDate = dateTime)
                 viewModel.updateItem(1, updated)
                 binding.tvEndDate.setText(dateTime)
             }
         }
+
     }
 
     fun setupPassengerInfo(item: AddRouteListItem.PassengerInfo) {
-        binding.etPassengerTrainNumber.setText(item.passengerTrainNumber)
         binding.etArrivalDate.setText(item.passengerStartDate)
         binding.etDepartureDate.setText(item.passengerEndDate)
 
@@ -150,6 +202,7 @@ class AddRouteFragment : Fragment() {
                 binding.etDepartureDate.setText(dateTime)
             }
         }
+
     }
 
 
@@ -159,10 +212,10 @@ class AddRouteFragment : Fragment() {
             viewModel.validate()
 
             // Это потом через вью модель вызывать надо будет
-//            viewModel.saveRoute()
+            viewModel.saveRoute()
 //
-//            Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
-//            parentFragmentManager.popBackStack()
+            Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
+            parentFragmentManager.popBackStack()
 
         }
 
