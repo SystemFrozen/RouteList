@@ -33,6 +33,13 @@ class AddRouteViewModel @Inject constructor(
         )
     )
 
+
+    fun updateItem(index: Int, newItem: AddRouteListItem) {
+        val list = items.value.toMutableList()
+        list[index] = newItem
+        items.value = list
+    }
+
     fun updateRoute(newItem: AddRouteListItem) {
         val list = items.value.toMutableList()
         list[0] = newItem
