@@ -12,5 +12,4 @@ interface RouteRepository {
 
     suspend fun deleteRoute(route: RouteListInfo)
 
-
 }
