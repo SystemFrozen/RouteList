@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.routelist.databinding.FragmentAddRouteBinding
-import com.example.routelist.presentation.addRouteActivity.model.AddRouteListItem
+import com.example.routelist.presentation.addRouteActivity.model.AddRouteState
 import com.example.routelist.presentation.addRouteActivity.model.CalendarPickerRouter
-import com.example.routelist.presentation.addRouteActivity.model.TextChangedImpl
 import com.example.routelist.presentation.mainActivity.RouteApp
 import com.example.routelist.presentation.mainActivity.ViewModelFactory
 import kotlinx.coroutines.launch
@@ -56,27 +56,26 @@ class AddRouteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         lifecycleScope.launch {
-            viewModel.items.flowWithLifecycle(lifecycle).collect {
+            viewModel.getStateFlow().flowWithLifecycle(lifecycle).collect {
+                setupDateRow(it)
+                setupPassengerInfo(it)
             }
         }
+
         lifecycleScope.launch {
-            viewModel.errorFlow.flowWithLifecycle(lifecycle).collect {
+            viewModel.getErrorFlow().flowWithLifecycle(lifecycle).collect {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
-        val dateRowInfo = viewModel.items.value[1] as AddRouteListItem.DateRow
-        val passenger = viewModel.items.value[3] as AddRouteListItem.PassengerInfo
+
+
         addTextChangeListeners()
+        setupDatePickerListeners()
 
-        setupDateRow(dateRowInfo)
-
-        setupPassengerInfo(passenger)
-
-        setupRecyclerView()
 
         saveButton()
+
     }
 
     override fun onDestroyView() {
@@ -84,122 +83,49 @@ class AddRouteFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupRecyclerView() {
-
-        val router = CalendarPickerRouter(requireContext())
-
-
-    }
 
     fun addTextChangeListeners() {
 
-        binding.etRouteNumber.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[0] as AddRouteListItem.RouteNumber
-                val newNumber = oldNumber.copy(number = text)
-                viewModel.updateItem(0, newNumber)
-            }
-        )
+        binding.etRouteNumber.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateRouteNumber(text.toString())
+        }
 
-        binding.etTrainNumber.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(trainNumber = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etComposition.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(composition = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etStationFrom.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(startStation = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etStationTo.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(endStation = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etDistance.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(distance = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etStops.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[2] as AddRouteListItem.TrainInfo
-                val newNumber = oldNumber.copy(stopsCount = text)
-                viewModel.updateItem(2, newNumber)
-            }
-        )
-
-        binding.etPassengerTrainNumber.addTextChangedListener(
-            TextChangedImpl { text ->
-                val oldNumber = viewModel.items.value[3] as AddRouteListItem.PassengerInfo
-                val newNumber = oldNumber.copy(passengerTrainNumber = text)
-                viewModel.updateItem(3, newNumber)
-            }
-        )
     }
 
-    fun setupDateRow(item: AddRouteListItem.DateRow) {
-        binding.tvStartDate.setText(item.startDate)
-        binding.tvEndDate.setText(item.endDate)
+    fun setupDateRow(item: AddRouteState) {
+        binding.tvStartDate.setText(item.dateRow.startDate)
+        binding.tvEndDate.setText(item.dateRow.endDate)
+    }
+
+    fun setupPassengerInfo(item: AddRouteState) {
+        binding.etArrivalDate.setText(item.dateRow.startDate)
+        binding.etDepartureDate.setText(item.dateRow.endDate)
+
+    }
+
+    fun setupDatePickerListeners() {
 
         binding.tvStartDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { dateTime ->
-                val old = viewModel.items.value[1] as AddRouteListItem.DateRow
-                val updated = old.copy(startDate = dateTime)
-                viewModel.updateItem(1, updated)
-                binding.tvStartDate.setText(dateTime)
+            CalendarPickerRouter(requireContext()).show { date ->
+                viewModel.updateStartDateRow(start = date)
             }
         }
 
         binding.tvEndDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { dateTime ->
-                val old = viewModel.items.value[1] as AddRouteListItem.DateRow
-                val updated = old.copy(endDate = dateTime)
-                viewModel.updateItem(1, updated)
-                binding.tvEndDate.setText(dateTime)
+            CalendarPickerRouter(requireContext()).show { date ->
+                viewModel.updateEndDateRow(end = date)
             }
         }
 
-    }
-
-    fun setupPassengerInfo(item: AddRouteListItem.PassengerInfo) {
-        binding.etArrivalDate.setText(item.passengerStartDate)
-        binding.etDepartureDate.setText(item.passengerEndDate)
-
-
         binding.etArrivalDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { dateTime ->
-                val updated = item.copy(passengerStartDate = dateTime)
-                viewModel.updateItem(3, updated)
-                binding.etArrivalDate.setText(dateTime)
+            CalendarPickerRouter(requireContext()).show { date ->
+                viewModel.updatePassengerStartDateRow(start = date)
             }
         }
 
         binding.etDepartureDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { dateTime ->
-                val updated = item.copy(passengerEndDate = dateTime)
-                viewModel.updateItem(3, updated)
-                binding.etDepartureDate.setText(dateTime)
+            CalendarPickerRouter(requireContext()).show { date ->
+                viewModel.updatePassengerEndDateRow(end = date)
             }
         }
 
@@ -209,17 +135,16 @@ class AddRouteFragment : Fragment() {
     private fun saveButton() {
 
         binding.saveRoute.setOnClickListener {
-            viewModel.validate()
-
-            // Это потом через вью модель вызывать надо будет
-            viewModel.saveRoute()
-//
-            Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
-            parentFragmentManager.popBackStack()
+            if (viewModel.validate()) {
+                viewModel.saveRoute()
+                Toast.makeText(requireContext(), "Маршрут сохранён", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.popBackStack()
+            }
 
         }
-
     }
+
+
 }
 
 
