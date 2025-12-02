@@ -12,8 +12,6 @@ data class RouteListDbModel(
     val startDate: String,
     val endDate: String,
 
-    val yearMonth: String,
-
     val trainNumber: String,
     val composition: String,
     val startStation: String,
