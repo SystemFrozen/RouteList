@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [RouteListDbModel::class], version = 8, exportSchema = false)
+@Database(entities = [RouteListDbModel::class], version = 9, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

@@ -63,12 +63,13 @@ class AddRouteFragment : Fragment() {
             }
         }
 
+
+
         lifecycleScope.launch {
             viewModel.getErrorFlow().flowWithLifecycle(lifecycle).collect {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
-
 
         addTextChangeListeners()
         setupDatePickerListeners()
@@ -90,6 +91,30 @@ class AddRouteFragment : Fragment() {
             viewModel.updateRouteNumber(text.toString())
         }
 
+        binding.etTrainNumber.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateTrainNumber(trainNum = text.toString())
+        }
+
+        binding.etComposition.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateCarriageCount(carriageCount = text.toString())
+        }
+
+        binding.etStationFrom.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateStartStation(startStation = text.toString())
+        }
+
+        binding.etStationTo.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateEndStation(endStation = text.toString())
+        }
+
+        binding.etDistance.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateDistance(distance = text.toString())
+        }
+
+        binding.etStops.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateCountStop(stopsCount = text.toString())
+        }
+
     }
 
     fun setupDateRow(item: AddRouteState) {
@@ -98,8 +123,8 @@ class AddRouteFragment : Fragment() {
     }
 
     fun setupPassengerInfo(item: AddRouteState) {
-        binding.etArrivalDate.setText(item.dateRow.startDate)
-        binding.etDepartureDate.setText(item.dateRow.endDate)
+        binding.etArrivalDate.setText(item.passengerInfo.passengerStartDate)
+        binding.etDepartureDate.setText(item.passengerInfo.passengerEndDate)
 
     }
 
@@ -118,14 +143,14 @@ class AddRouteFragment : Fragment() {
         }
 
         binding.etArrivalDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { date ->
-                viewModel.updatePassengerStartDateRow(start = date)
+            CalendarPickerRouter(requireContext()).show { datePassenger ->
+                viewModel.updatePassengerStartDateRow(start = datePassenger)
             }
         }
 
         binding.etDepartureDate.setOnClickListener {
-            CalendarPickerRouter(requireContext()).show { date ->
-                viewModel.updatePassengerEndDateRow(end = date)
+            CalendarPickerRouter(requireContext()).show { datePassenger ->
+                viewModel.updatePassengerEndDateRow(end = datePassenger)
             }
         }
 
