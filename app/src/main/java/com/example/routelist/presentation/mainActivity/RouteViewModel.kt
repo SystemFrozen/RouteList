@@ -97,6 +97,7 @@ class RouteViewModel @Inject constructor(
 
 
     private fun calculateHours(start: String, end: String): Long {
+
         val s = safeParse(start) ?: return 0
         val e = safeParse(end) ?: return 0
 
@@ -104,9 +105,14 @@ class RouteViewModel @Inject constructor(
     }
 
     private fun calculateNightHours(start: String, end: String): Long {
+
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-        var current = LocalDateTime.parse(start, formatter)
-        val endTime = LocalDateTime.parse(end, formatter)
+
+        val s = safeParse(start) ?: return 0
+        val e = safeParse(end) ?: return 0
+
+        var current = s
+        val endTime = e
         var totalMinutes = 0L
 
         while (current.isBefore(endTime)) {
@@ -116,6 +122,7 @@ class RouteViewModel @Inject constructor(
             }
             current = current.plusMinutes(1)
         }
+
         return totalMinutes
     }
 
